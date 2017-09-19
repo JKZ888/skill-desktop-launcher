@@ -32,6 +32,7 @@ logger = getLogger(__name__)
 __author__ = 'seanfitz'
 
 IFL_TEMPLATE = "http://www.google.com/search?&sourceid=navclient&btnI=I&q=%s"
+DANCE_COOKING_MUSIC = "https://www.youtube.com/watch?v=6tVCrogMiCI&list=PLL3YSQK_kzSXFSZmI_FA2PkchOWQc9FX0"
 
 
 class DesktopLauncherSkill(MycroftSkill):
@@ -90,6 +91,12 @@ class DesktopLauncherSkill(MycroftSkill):
             "SearchTerms").build()
         self.register_intent(search_website, self.handle_search_website)
 
+        launch_playlist_intent = IntentBuilder(
+            "LaunchPlaylistIntent").require("LaunchKeyword").require(
+            "Playlist").build()
+        self.register_intent(launch_playlist_intent, self.handle_launch_playlist)
+
+
     def handle_launch_desktop_app(self, message):
         app_name = message.data.get('Application')
         apps = self.appmap.get(app_name)
@@ -104,6 +111,19 @@ class DesktopLauncherSkill(MycroftSkill):
         site = message.data.get("Website")
         webbrowser.open(IFL_TEMPLATE % (urllib2.quote(site)))
 
+
+
+    def handle_launch_playlist(self, message):
+        site = message.data.get("Playlist")
+        webbrowser.open(IFL_TEMPLATE % (urllib2.quote(site)))
+        # webbrowser.open(DANCE_COOKING_MUSIC)
+
+# added: new skill: playlist launcher
+# opnwebsite qui contient IFL template avec modulo
+#lib webbrowser.
+# website
+# urllb equivalent de nokogiri pour récupérer infos page web.
+
     def handle_search_website(self, message):
         site = message.data.get("Website")
         search_terms = message.data.get("SearchTerms")
@@ -112,7 +132,6 @@ class DesktopLauncherSkill(MycroftSkill):
 
     def stop(self):
         pass
-
 
 def create_skill():
     return DesktopLauncherSkill()

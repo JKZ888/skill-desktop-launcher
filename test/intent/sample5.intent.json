@@ -1,0 +1,8 @@
+{
+  "utterance": "launch dance",
+  "intent_type": "LaunchPlaylistIntent",
+  "intent": {
+    "LaunchKeyword": "open",
+    "Playlist": "dance"
+  }
+}

@@ -122,7 +122,6 @@ class DesktopLauncherSkill(MycroftSkill):
 # opnwebsite qui contient IFL template avec modulo
 #lib webbrowser.
 # website
-# urllb equivalent de nokogiri pour récupérer infos page web.
 
     def handle_search_website(self, message):
         site = message.data.get("Website")
